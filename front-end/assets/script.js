@@ -1,4 +1,5 @@
-const baseURL = "http://localhost:3000/paletas";
+
+const baseURL = "http://localhost:3002/paletas";
 
 async function findAllPaletas() {
     const response = await fetch(`${baseURL}/todas-paletas`)

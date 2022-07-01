@@ -28,7 +28,7 @@ const createPaletaController = async (req, res) => {
 };
 
 const updatePaletaController = async (req, res) => {
-  const idParam = +req.params.id;
+  const idParam = req.params.id;
   const paletaEdit = req.body;
   const updatedPaleta = await paletasService.updatePaletaService(
     idParam,
@@ -40,7 +40,8 @@ const updatePaletaController = async (req, res) => {
 const deletePaletaController = async (req, res) => {
   const idParam = req.params.id;
   await paletasService.deletePaletaService(idParam);
-  res.send({ message: 'Paleta deletada com sucesso!' });
+
+  return res.send({ message: 'Paleta deletada com sucesso!' });
 };
 
 module.exports = {

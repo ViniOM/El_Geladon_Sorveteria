@@ -1,9 +1,12 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const route = require('./src/routes/paleta.route');
-
+const connectToDataBase = require('./src/database/database');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3002;
+
+connectToDataBase();
 
 app.use(express.json());
 app.use(cors());

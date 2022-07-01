@@ -1,32 +1,45 @@
+const mongoose = require('mongoose');
 const paletasService = require('../services/paleta.service');
 
-const findAllPaletasController = (req, res) => {
-  const paletas = paletasService.findAllPaletasService();
+const findAllPaletasController = async (req, res) => {
+  const paletas = await paletasService.findAllPaletasService();
+  if (paletas.length == 0) {
+    return res
+      .status(404)
+      .send({ message: 'Não existe nenhuma paleta cadastrada!' });
+  }
   res.send(paletas);
 };
 
-const findByIdPaletaController = (req, res) => {
-  const idParam = +req.params.id;
-  const chosenPaleta = paletasService.findByIdPaletaService(idParam);
+const findByIdPaletaController = async (req, res) => {
+  const idParam = req.params.id;
+  const chosenPaleta = await paletasService.findByIdPaletaService(idParam);
+  if (!chosenPaleta) {
+    res.status(404).send({ message: 'Paleta não encontrada!' });
+  }
   res.send(chosenPaleta);
 };
 
-const createPaletaController = (req, res) => {
+const createPaletaController = async (req, res) => {
   const paleta = req.body;
-  const newPaleta = paletasService.createPaletaService(paleta);
-  res.send(newPaleta);
+
+  const newPaleta = await paletasService.createPaletaService(paleta);
+  res.status(201).send(newPaleta);
 };
 
-const updatePaletaController = (req, res) => {
+const updatePaletaController = async (req, res) => {
   const idParam = +req.params.id;
   const paletaEdit = req.body;
-  const updatedPaleta = paletasService.updatePaletaService(idParam, paletaEdit);
+  const updatedPaleta = await paletasService.updatePaletaService(
+    idParam,
+    paletaEdit,
+  );
   res.send(updatedPaleta);
 };
 
-const deletePaletaController = (req, res) => {
+const deletePaletaController = async (req, res) => {
   const idParam = req.params.id;
-  paletasService.deletePaletaService(idParam);
+  await paletasService.deletePaletaService(idParam);
   res.send({ message: 'Paleta deletada com sucesso!' });
 };
 

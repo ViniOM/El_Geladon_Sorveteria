@@ -10,7 +10,7 @@ connectToDataBase();
 
 app.use(express.json());
 app.use(cors());
-app.use('/paletas', route);
+app.use('/', route);
 
 app.listen(port, () => {
   console.log(`servidor rodando em http://localhost:${port}`);

@@ -12,7 +12,3 @@ route.put('/update/:id', validId, validObjectBody, controllerPaletas.updatePalet
 route.delete('/delete/:id', validId, controllerPaletas.deletePaletaController)
 
 module.exports = route;
-
-
-
-
